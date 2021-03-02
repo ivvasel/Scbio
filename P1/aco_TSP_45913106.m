@@ -2,7 +2,7 @@ function [BestSol] = aco_TSP_45913106(model,nants,niter)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % GENERATION OF EMPTY INPUT VARIABLES %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    if nargin<1,model=generamodelo_45913106(20,1,0); end %generate a random model
+    if nargin<1,model=generamodelo_45913106(20,10,0); end %generate a random model
     if nargin<3,niter=50; end
     if nargin<2,nants=10; end      
 nest=1;

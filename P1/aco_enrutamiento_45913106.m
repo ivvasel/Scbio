@@ -19,7 +19,7 @@ function [BestSol]=aco_enrutamiento_45913106(model,nest,food,nants,niter)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % GENERATION OF EMPTY INPUT VARIABLES %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    if nargin<1, model=generamodelo_45913106(30,1,0); end %generate a random model
+    if nargin<1, model=generamodelo_45913106(30,10,0); end %generate a random model
     if nargin<5, niter=100; end
     if nargin<4, nants=40; end    
     if nargin<3, 
