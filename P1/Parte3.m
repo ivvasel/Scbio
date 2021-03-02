@@ -185,13 +185,12 @@ end
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         disp(['Iteration' num2str(k) ': Best Cost = ' num2str(BestSol.Cost)]);
         %figure 
-        plotdistribution(model,tau) %plot map and distribution of pheromone
+        plotdistribution2(model,tau) %plot map and distribution of pheromone
         title(['Generated model. Iteration: ' num2str(k)],'FontWeight','bold')
-        pause(0.1) %stop during0.1 seconds to allow the user to see the progression
+        pause(0.2) %stop during0.1 seconds to allow the user to see the progression
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % Show/Plot pheromone update
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        plotdistribution(model,tau);
 end  
    
