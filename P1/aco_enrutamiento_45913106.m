@@ -203,10 +203,6 @@ end
         title(['Generated model. Iteration: ' num2str(k)],'FontWeight','bold')
         pause(0.1) %stop during0.1 seconds to allow the user to see the progression
 
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        % Show/Plot pheromone update
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        plotdistribution(model,tau);
 end
 
     
