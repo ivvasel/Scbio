@@ -28,7 +28,6 @@ function model=generamodelo_45913106(numberofnodes,tam,mode)
     %           de los nodos 2, 3 y 5.
 
 close all % Close all opened figures
-clear vars
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % GENERATION OF INPUT VARIABLES %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -45,32 +44,30 @@ end
 %%%%%%%%%%%%%%%%%%%%%%
 % GENERATION OF NODES %
 %%%%%%%%%%%%%%%%%%%%%%
-
-
-
-% % nmberofnodes = 5;
-%MODO 0
+%% MODO 0: Aleatoria
 if mode==0
-x=rand(numberofnodes,1);
-y=rand(numberofnodes,1);
+x=tam+(-tam)*rand(numberofnodes,1);
+y=tam+(-tam)*rand(numberofnodes,1);
 end
 
-%MODO1 manualmente
+%% MODO1: Manualmente
 if mode==1
     [x,y]=ginput(numberofnodes);
+    x=tam+(-tam)*x;
+    y=tam+(-tam)*y;
     close
 end
+%% MODO2: Almacenado
 if mode==2
     load('var','x','y');
 end
-%MODO2 ya en la BD
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % GENERATION OF TRIANGLES %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 save('var.mat','x','y');
 dt=delaunayTriangulation(x,y);
-% triplot(dt)
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CALCULATION OF MATRIX OF DISTANCES BETWEEN NODES %
@@ -79,7 +76,7 @@ D = ones(numberofnodes,numberofnodes);
 for i=1:numberofnodes
     Xi=dt.Points(i,1);
     Yi=dt.Points(i,2);
-%     j=1;
+    
     for j=1:numberofnodes
         Xj=dt.Points(j,1);
         Yj=dt.Points(j,2);
@@ -87,6 +84,7 @@ for i=1:numberofnodes
         D(i,j)=dist*D(i,j);
     end
 end
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CALCULATION OF NEIGHBORS %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%  
@@ -94,13 +92,15 @@ nei={};
 for i=1:numberofnodes
 %   Obtengo los índices de fila y columna donde se encuentra el nodo i
     [fila,columna]=find(dt.ConnectivityList==i);
+%   Crea el vector con todas las fila(puntos que forman cada triangulo) en
+%   el nodo i
     nei=[nei dt.ConnectivityList(fila,:)];
-    aux=unique(nei{i});
-    nei{i}=aux;
-    index=find(aux==i);
-    aux=aux(:);
-    aux(index,:)=[];
-    nei{i}=aux;
+%   Quita nodos repetidos en el vector nei
+    aux=unique(nei{i}); 
+    index=find(aux==i); %Devuelve el índice que apunta al propio nodo
+    aux=aux(:); %Convierte en vector columna para trabajar siempre igual
+    aux(index,:)=[]; %Elimina el propio nodo del vector aux de vecinos
+    nei{i}=aux; %Almacena los vecinos
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
