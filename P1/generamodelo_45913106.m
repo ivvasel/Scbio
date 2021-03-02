@@ -59,14 +59,20 @@ if mode==1
 end
 %% MODO2: Almacenado
 if mode==2
-    load('var','x','y');
+    auxtam=tam;%almacenamos variable introducida
+    load('var','x','y','tam');
+    x=x/tam;
+    y=y/tam;
+    tam=auxtam;%devolvemos el valor introducido por el usuario
+    x=tam*x;
+    y=tam*y;
 end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % GENERATION OF TRIANGLES %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-save('var.mat','x','y');
+save('var.mat','x','y','tam');
 dt=delaunayTriangulation(x,y);
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
