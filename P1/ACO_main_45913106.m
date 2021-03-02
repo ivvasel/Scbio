@@ -3,8 +3,8 @@
 % 1. generamodelo_45913106
 % 2. aco_enrutamiento_45913106
 % 3. aco_TSP_45913106
-clear all
 clc
+
 
 %% Interfaz de usuario
 disp('Elige una función:')
@@ -27,12 +27,18 @@ switch funcion
                 disp('Introduce: generamodelo_45913106(numberofnodes,tam,0)')
                 disp('numberofnodes: número de nodos')
                 disp('tam: tamaño máximo de la cuadrícula')
+                numberofnodes=input('numberofnodes: ');
+                tam=input('tam: ');
+                model=generamodelo_45913106(numberofnodes,tam,0);
             case 1
                 clc
                 disp('Introduce: generamodelo_45913106(numberofnodes,tam,1)')
                 disp('numberofnodes: número de nodos')
                 disp('tam: tamaño máximo de la cuadrícula')
                 disp('Deberás clickar en la figura la cantidad de numberofnodes veces') 
+                numberofnodes=input('numberofnodes: ');
+                tam=input('tam: ');
+                model=generamodelo_45913106(numberofnodes,tam,1);
             case 2
                 clc
                 disp('Introduce: generamodelo_45913106(numberofnodes,tam,2)')
@@ -40,8 +46,11 @@ switch funcion
                 disp('tam: tamaño máximo de la cuadrícula') 
                 disp('Si deseas utilizar nodos almacenados propios debes de crear el archivo con save(`var.mat´,´x ´,`y`,`tam`)')
                 disp('Si no deberás crear primero un modelo con alguno de los modos anteriores y después ejectutar este modo')
+                numberofnodes=input('numberofnodes: ');
+                tam=input('tam: ');
+                model=generamodelo_45913106(numberofnodes,tam,2);
         end
-        
+        %% PARTE2
     case 2
         disp('Elige el modo de funcionamiento')
         disp('0: Genera un modelo aleatorio')
@@ -53,6 +62,7 @@ switch funcion
                 disp('Introduce: aco_enrutamiento_45913106()')
                 disp('Generará un nuevo modelo con los parámetros predefinidos')
                 disp('Este modo guarda en un arvhico modelo.mat el modelo que ha generado')
+                BestSol_aco=aco_enrutamiento_45913106();
             case 1
                 clc
                 disp('Introduce: aco_enrutamiento_45913106(model,nest,food,nants,niter)')
@@ -61,8 +71,13 @@ switch funcion
                 disp('food: nodo de la comida')
                 disp('nants: número de hormigas')
                 disp('niter: número de veces que una hormiga sale a buscar comida')
+                nest=input('Nest: ');
+                food=input('Food: ');
+                nants=input('Nants: ');
+                niter=input('Niter: ');
+                BestSol_aco=aco_enrutamiento_45913106(model,nest,food,nants,niter);
         end
-        
+        %% Parte 3
     case 3
         disp('Elige el modo de funcionamiento')
         disp('0: Genera un modelo aleatorio')
@@ -74,12 +89,16 @@ switch funcion
                 disp('Introduce: aco_TSP_45913106()')
                 disp('Generará un nuevo modelo con los parámetros predefinidos')
                 disp('Este modo guarda en un arvhico modelo.mat el modelo que ha generado')
+                BestSol_TSP=aco_TSP_45913106();
             case 1
                 clc
                 disp('Introduce: aco_TSP_45913106(model,nants,niter)')
                 disp('model: modelo almacenado')
                 disp('nants: número de hormigas')
                 disp('niter: número de veces que una hormiga sale a buscar el camino')
+                nants=input('Nants: ');
+                niter=input('Niter: ');
+                BestSol_TSP=aco_TSP_45913106(model,nants,niter);
         end
         
 end
