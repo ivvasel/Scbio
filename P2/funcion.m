@@ -115,37 +115,24 @@ end
         
         Nn=npar/2;
         at=randi(npar);
-        aux=at+Nn-1;
         counter1=Nn;
-        auxind=[];
         auxmadre=genesmadre;
+        i=at+Nn;
         
         %Hijo 1
         %Genes del padre
-        for i=at:aux
-            if i <= npar
-                hijo1(i)=genespadre(i);
-                counter1=counter1 - 1;
-                %opcion 1
-                auxhij=hijo1(i);
-                auxind = [auxind find(auxmadre==auxhij)];
-                %Opcion 2
-                iii=find(auxmadre==auxhij);
-                auxmadre(:,iii)=[];
-                
-            end
+        while(counter1~=0)
+            i = i +1;
             if i > npar
-                for i=1:counter1
-                hijo1(i)=genespadre(i);
-                %opcion1
-                auxhij=hijo1(i);
-                auxind = [auxind find(auxmadre==auxhij)];
-                %opcion2
-                iii=find(auxmadre==auxhij);
-                auxmadre(:,iii)=[];
-                end
-                break
-            end        
+                i=1;
+            end  
+            hijo1(i)=genespadre(i);
+            counter1=counter1 - 1;
+            %opcion 1
+            auxhij=hijo1(i);
+            %Opcion 2
+            indi=find(auxmadre==auxhij);
+            auxmadre(:,indi)=[];
             
         end
         
@@ -155,9 +142,6 @@ end
         %Genes de la madre
         while(counter2~=0)
             i=i+1;
-            if i <= npar
-                               
-            end
             if i > npar
                 i=1;                              
             end
