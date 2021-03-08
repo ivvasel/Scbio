@@ -128,11 +128,9 @@ end
             end  
             hijo1(i)=genespadre(i);
             counter1=counter1 - 1;
-            %opcion 1
-            auxhij=hijo1(i);
-            %Opcion 2
-            indi=find(auxmadre==auxhij);
-            auxmadre(:,indi)=[];
+            auxhij=hijo1(i); %Obtiene 
+            indi=find(auxmadre==hijo1(i)); %Indice del gen utilizado por el otro padre
+            auxmadre(:,indi)=[]; %Contiene los genes restantes que no han sido utilizado por el otro padre
             
         end
         
