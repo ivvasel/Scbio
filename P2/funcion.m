@@ -75,8 +75,7 @@ odds=[];
 k=popsize*selection;
 for i=1:popsize*selection
     for j=1:k
-        odds=[i odds];
-        
+        odds=[i odds];        
     end
     k=k-1;
 end
@@ -101,24 +100,74 @@ end
     % Emparejamientos y generación de los hijos %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
    
-    for i=1:N %Bucle de emparejamiento e hijos
+%     for i=1:N %Bucle de emparejamiento e hijos
         
         %Obtenemos quien son los padres
-        padre=odds(indicespadres(i)); 
-        madre=odds(indicesmadres(i));
+        padre=odds(indicespadres(1)); 
+        madre=odds(indicesmadres(1));
         %Cogemos los genes de la matriz pop
         genespadre = pop(padre,:);
         genesmadre = pop(madre,:);
         
-        N=npar/2;
+       
+        hijo1=zeros(1,npar);
+        hijo2=zeros(1,npar);
+        
+        Nn=npar/2;
         at=randi(npar);
-        hijo1=[];
-        hijo2=[];
+        aux=at+Nn-1;
+        counter1=Nn;
+        auxind=[];
+        auxmadre=genesmadre;
         
         %Hijo 1
-        for i=at:
+        %Genes del padre
+        for i=at:aux
+            if i <= npar
+                hijo1(i)=genespadre(i);
+                counter1=counter1 - 1;
+                %opcion 1
+                auxhij=hijo1(i);
+                auxind = [auxind find(auxmadre==auxhij)];
+                %Opcion 2
+                iii=find(auxmadre==auxhij);
+                auxmadre(:,iii)=[];
+                
+            end
+            if i > npar
+                for i=1:counter1
+                hijo1(i)=genespadre(i);
+                %opcion1
+                auxhij=hijo1(i);
+                auxind = [auxind find(auxmadre==auxhij)];
+                %opcion2
+                iii=find(auxmadre==auxhij);
+                auxmadre(:,iii)=[];
+                end
+                break
+            end        
+            
+        end
         
-    end
+        j=1;
+        counter2=Nn;
+     
+        %Genes de la madre
+        while(counter2~=0)
+            i=i+1;
+            if i <= npar
+                               
+            end
+            if i > npar
+                i=1;                              
+            end
+            hijo1(i)=auxmadre(j); 
+            counter2=counter2 - 1;
+            
+            j=j+1;
+        end
+        
+%     end
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Mutate the population
