@@ -1,6 +1,5 @@
 function [hijo] = op_cruce(genespadre,genesmadre,npar,at)
 %Metodo para realizar la operacion de cruce
-%i=at+N
 %npar = numero de genes
 i=at-1;
 hijo=zeros(1,npar);
@@ -13,7 +12,7 @@ counter1=npar/2;
             end  
             hijo(i)=genespadre(i);
             counter1=counter1 - 1;
-            indi=find(auxmadre==hijo(i)); %Indice del gen utilizado por el otro padre
+            indi=auxmadre==hijo(i); %Indice del gen utilizado por el otro padre
             auxmadre(:,indi)=[]; %Contiene los genes restantes que no han sido utilizado por el otro padre
             
         end
