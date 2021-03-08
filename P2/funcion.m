@@ -110,44 +110,17 @@ end
         genesmadre = pop(madre,:);
         
        
-        hijo1=zeros(1,npar);
-        hijo2=zeros(1,npar);
+%         hijo1=zeros(1,npar);
+%         hijo2=zeros(1,npar);
         
-        Nn=npar/2;
+%         Nn=npar/2;
         at=randi(npar);
-        counter1=Nn;
-        auxmadre=genesmadre;
-        i=at+Nn;
+%         counter1=Nn;
+%         auxmadre=genesmadre;
         
-        %Hijo 1
-        %Genes del padre
-        while(counter1~=0)
-            i = i +1;
-            if i > npar
-                i=1;
-            end  
-            hijo1(i)=genespadre(i);
-            counter1=counter1 - 1;
-            auxhij=hijo1(i); %Obtiene 
-            indi=find(auxmadre==hijo1(i)); %Indice del gen utilizado por el otro padre
-            auxmadre(:,indi)=[]; %Contiene los genes restantes que no han sido utilizado por el otro padre
-            
-        end
-        
-        j=1;
-        counter2=Nn;
-     
-        %Genes de la madre
-        while(counter2~=0)
-            i=i+1;
-            if i > npar
-                i=1;                              
-            end
-            hijo1(i)=auxmadre(j); 
-            counter2=counter2 - 1;
-            
-            j=j+1;
-        end
+        hijo1=op_cruce(genespadre,genesmadre,npar,at);
+        hijo2=op_cruce(genesmadre,genespadre,npar,at);
+
         
 %     end
     

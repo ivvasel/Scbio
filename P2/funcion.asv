@@ -110,58 +110,18 @@ end
         genesmadre = pop(madre,:);
         
        
-        hijo1=zeros(1,npar);
-        hijo2=zeros(1,npar);
+%         hijo1=zeros(1,npar);
+%         hijo2=zeros(1,npar);
         
-        Nn=npar/2;
+%         Nn=npar/2;
         at=randi(npar);
-        aux=at+Nn-1;
-        counter1=Nn;
-        auxmadre=genesmadre;
-        i=0;
+%         counter1=Nn;
+%         auxmadre=genesmadre;
+        i=at-1;
         
         %Hijo 1
-        %Genes del padre
-        while(counter1~=0)
-            i = i +1;
-            if i <= npar
-                hijo1(i)=genespadre(i);
-                counter1=counter1 - 1;
-                %opcion 1
-                auxhij=hijo1(i);
-                %Opcion 2
-                iii=find(auxmadre==auxhij);
-                auxmadre(:,iii)=[];
-                
-            end
-            if i > npar
-                for i=1:counter1
-                hijo1(i)=genespadre(i);
-                %opcion1
-                auxhij=hijo1(i);
-                %opcion2
-                iii=find(auxmadre==auxhij);
-                auxmadre(:,iii)=[];
-                end
-                break
-            end        
-            
-        end
-        
-        j=1;
-        counter2=Nn;
-     
-        %Genes de la madre
-        while(counter2~=0)
-            i=i+1;
-            if i > npar
-                i=1;                              
-            end
-            hijo1(i)=auxmadre(j); 
-            counter2=counter2 - 1;
-            
-            j=j+1;
-        end
+        hijo1=op_cruce(genespadre,genesmadre,npar,i);
+
         
 %     end
     
