@@ -31,6 +31,7 @@ end
 x=model.x;
 y=model.y;
 numberofnodes=length(x);
+save('model','model');
 close all
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
