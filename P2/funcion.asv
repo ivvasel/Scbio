@@ -18,7 +18,7 @@
 % if nargin<1
      fmode=0;
 % end
-numberofnodes=8;
+numberofnodes=10;
 tam=10;
 % if fmode==3
 %     if nargin<2
@@ -42,6 +42,7 @@ maxit=2000; % max number of iterations
 popsize=20; % set population size / miembros de la población
 mutrate=.05; % set mutation rate
 selection=0.5; % fraction of population kept / fracción de miembros sobreviven
+iga=0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %INICIALIZA LA POBLACIÓN Y VECTOR DE COSTES%
@@ -84,8 +85,8 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% PONEMOS EL MUNDO VIRTUAL A FUNCIONAR (MAIN LOOP)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% while iga<maxit
-%     iga=iga+1; % increments generation counter
+while iga<maxit
+    iga=iga+1; % increments generation counter
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % ELIJO A LOS PADRES Y MADRES %
@@ -99,118 +100,133 @@ end
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Emparejamientos y generación de los hijos %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-   
-%     for i=1:N %Bucle de emparejamiento e hijos
+        hijos=[];
+    for i=1:N %Bucle de emparejamiento e hijos
         
         %Obtenemos quien son los padres
-        padre=odds(indicespadres(1)); 
-        madre=odds(indicesmadres(1));
+        padre=odds(indicespadres(i)); 
+        madre=odds(indicesmadres(i));
         %Cogemos los genes de la matriz pop
         genespadre = pop(padre,:);
-        genesmadre = pop(madre,:);
-        
-       
-%         hijo1=zeros(1,npar);
-%         hijo2=zeros(1,npar);
-        
-%         Nn=npar/2;
-        at=randi(npar);
-%         counter1=Nn;
-%         auxmadre=genesmadre;
-        i=at-1;
-        
-        %Hijo 1
-        hijo1=op_cruce(genespadre,genesmadre,npar,i);
+        genesmadre = pop(madre,:);      
 
+        at=randi(npar);
+        %Obtenemos los dos hijos de los dos padres seleccionamos
+        hijo1=op_cruce(genespadre,genesmadre,npar,at);
+        hijo2=op_cruce(genesmadre,genespadre,npar,at);
         
-%     end
+        
+        
+        
+        hijos=[hijos;hijo1;hijo2];
+        
+    end
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Mutate the population
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% INTRODUCE EL TU CÓDIGO
-%     
-%     %%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     Evalua el coste de la nueva población
-%     %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-%     Sort the costs and associated parameters
-%     [cost,ind]=sort(cost);
-% pop=pop(ind,:);
-%     
-%     _______________________________________________________
-%     Do statistics
-%     minc(iga)=min(cost);
-%     meanc(iga)=mean(cost);
-%         
-%     iga
-% end %iga
+        col1=0;
+        col2=0;
+        while(col1==col2) %Evitar que los genes que mutan coincidan
+            col1=randi(Nt);
+            col2=randi(Nt);
+        end
+        hijos(:,[col1 col2])=hijos(:,[col2 col1]); %Mutacion
+    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%
+    cost=tspfun(pop,model);
+    %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    Sort the costs and associated parameters
+    [cost,ind]=sort(cost);
+pop=pop(ind,:);
+    
+    Do statistics
+    minc(iga)=min(cost);
+    meanc(iga)=mean(cost);
+        
+    iga
+end %iga
  
 
-%_______________________________________________________
-% % Displays the output
-% day=clock;
-% disp(datestr(datenum(day(1),day(2),day(3),day(4),day(5),day(6)),0))
-% %disp(['optimized function is ' ff])
-% format short g
-% disp(['popsize=' num2str(popsize) 'mutrate=' num2str(mutrate) '# par=' num2str(npar)])
-% disp([' best cost=' num2str(cost(1))])
-% disp(['best solution']); disp([num2str(pop(1,:))])
-%  
-% figure(2)
-% iters=1:maxit;
-% plot(iters,minc,iters,meanc,'--','LineWidth',2);
-% hold on
-% xlabel('generation','FontWeight','bold','FontSize',12);
-% ylabel('cost','FontWeight','bold','FontSize',12);
-% legend('Coste Mínimo', 'Coste Medio')
-% box on
-% set(gca,'FontSize',12)
-% set(gca,'FontWeight','bold')
-% plotsolution(x,y,pop)
-%  
-% function dist=tspfun(pop,model)
-% % Cost function for the traveling salesman problem.
-% 
-% INTRODUCE EL TU CÓDIGO
-% 
-% function plotsolution(x,y,pop)
-%  
-% %%%%%%%%%%%%%%%%%%%
-% % PINTA LOS NODOS %
-% %%%%%%%%%%%%%%%%%%%
-% figure(1);
-% clf %clear figure
-% tam=max([x; y])+1; % tamaño máximo del modelo
-% plot(x,y,'x') %pinta los nodos
-% axis([0 tam 0 tam]) %fija los ejes
-%  
-% %%%%%%%%%%%%%%%%%%%%%
-% % PINTA LA SOLUCIÓN %
-% %%%%%%%%%%%%%%%%%%%%%
-% hold on
-% sol=pop(1,:);
-% for i=1:length(sol)-1
-%     p1x=x(sol(i));
-%     p2x=x(sol(i+1));
-%     p1y=y(sol(i));
-%     p2y=y(sol(i+1));
-%     line([p1x p2x], [p1y p2y],'LineWidth',2)         
-% end
-%     p1x=x(sol(1));
-%     p2x=x(sol(end));
-%     p1y=y(sol(1));
-%     p2y=y(sol(end));
-%     line([p1x p2x], [p1y p2y],'LineWidth',2)      
-% axis square
-%  
-% hold on
-% %Plot the number of each node
-% for i=1:length(x)    
-%     text(x(i),y(i),num2str(i),'FontWeight','bold','FontSize',12)
-% end
-% box on
-% xlabel('X coordenate (m)','FontWeight','bold')
-% ylabel('Y coordenate (m)','FontWeight','bold')
-% set(gca,'FontSize',12)
-% set(gca,'FontWeight','bold')
+
+% Displays the output
+day=clock;
+disp(datestr(datenum(day(1),day(2),day(3),day(4),day(5),day(6)),0))
+%disp(['optimized function is ' ff])
+format short g
+disp(['popsize=' num2str(popsize) 'mutrate=' num2str(mutrate) '# par=' num2str(npar)])
+disp([' best cost=' num2str(cost(1))])
+disp(['best solution']); disp([num2str(pop(1,:))])
+ 
+figure(2)
+iters=1:maxit;
+plot(iters,minc,iters,meanc,'--','LineWidth',2);
+hold on
+xlabel('generation','FontWeight','bold','FontSize',12);
+ylabel('cost','FontWeight','bold','FontSize',12);
+legend('Coste Mínimo', 'Coste Medio')
+box on
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+plotsolution(x,y,pop)
+ 
+function cost=tspfun(pop,model)
+% Cost function for the traveling salesman problem.
+[popsize,npar]=size(pop);
+cost=[];
+for i=1 :popsize
+coste=[];
+genes=pop(i,:);
+    for l=2 :npar
+        nodoi=genes(l-1);%Obtenemos el nodo i
+        nodoj=genes(l);%Obtenemos el nodo j
+        coste=[coste model.D(nodoi,nodoj)]; %Añadimos la distancia entre cada salto del camino seguido por la hormiga
+                
+    end
+    coste=sum(coste);
+    cost=[cost coste];
+end
+end
+
+function plotsolution(x,y,pop)
+ 
+%%%%%%%%%%%%%%%%%%%
+% PINTA LOS NODOS %
+%%%%%%%%%%%%%%%%%%%
+figure(1);
+clf %clear figure
+tam=max([x; y])+1; % tamaño máximo del modelo
+plot(x,y,'x') %pinta los nodos
+axis([0 tam 0 tam]) %fija los ejes
+ 
+%%%%%%%%%%%%%%%%%%%%%
+% PINTA LA SOLUCIÓN %
+%%%%%%%%%%%%%%%%%%%%%
+hold on
+sol=pop(1,:);
+for i=1:length(sol)-1
+    p1x=x(sol(i));
+    p2x=x(sol(i+1));
+    p1y=y(sol(i));
+    p2y=y(sol(i+1));
+    line([p1x p2x], [p1y p2y],'LineWidth',2)         
+end
+    p1x=x(sol(1));
+    p2x=x(sol(end));
+    p1y=y(sol(1));
+    p2y=y(sol(end));
+    line([p1x p2x], [p1y p2y],'LineWidth',2)      
+axis square
+ 
+hold on
+%Plot the number of each node
+for i=1:length(x)    
+    text(x(i),y(i),num2str(i),'FontWeight','bold','FontSize',12)
+end
+box on
+xlabel('X coordenate (m)','FontWeight','bold')
+ylabel('Y coordenate (m)','FontWeight','bold')
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+end
