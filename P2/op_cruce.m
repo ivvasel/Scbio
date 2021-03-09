@@ -9,7 +9,7 @@ counter1=npar/2;
             i = i +1;
             if i > npar
                 i=1;
-            end  
+            end
             hijo(i)=genespadre(i);
             counter1=counter1 - 1;
             indi=auxmadre==hijo(i); %Indice del gen utilizado por el otro padre

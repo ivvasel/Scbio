@@ -1,4 +1,4 @@
-%% function 1.	tspga_DNI (fmode,model)
+% function 1.	tspga_DNI (fmode,model)
 % fucntion tspga_DNI(fmode,model)
 % Función que utiliza algoritmos genéticos para resolver el problema del
 % viajante (Travel Sales Problem TSP)
@@ -16,18 +16,18 @@
 % GENERACION DEL MODELO EN FUNCIÓN DE LAS INSTRUCCIONES DEL USUARIO %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % if nargin<1
-     fmode=0;
+     fmode=3;
 % end
 numberofnodes=20;
 tam=10;
-% if fmode==3
+if fmode==3
 %     if nargin<2
 %          disp('Error: El modo 3 requiere introducir el modelo')
 %     end
-% end
-% if fmode<3
+end
+if fmode<3
     model=generamodelo_45913106(numberofnodes,tam,fmode);
-% end
+end
 x=model.x;
 y=model.y;
 numberofnodes=length(x);
@@ -38,7 +38,7 @@ close all
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 npar=numberofnodes; % # of optimization variables
 Nt=npar; % # of columns in population matrix
-maxit=2000; % max number of iterations
+maxit=10000; % max number of iterations
 popsize=20; % set population size / miembros de la población
 mutrate=.05; % set mutation rate
 selection=0.5; % fraction of population kept / fracción de miembros sobreviven
@@ -115,8 +115,7 @@ while iga<maxit
         at=randi(npar);
         %Obtenemos los dos hijos de los dos padres seleccionamos
         hijo1=op_cruce(genespadre,genesmadre,npar,at);
-        hijo2=op_cruce(genesmadre,genespadre,npar,at);
-        
+        hijo2=op_cruce(genesmadre,genespadre,npar,at);   
         
         
         
@@ -233,3 +232,38 @@ ylabel('Y coordenate (m)','FontWeight','bold')
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 end
+function [hijo] = op_cruce(genespadre,genesmadre,npar,at)
+%Metodo para realizar la operacion de cruce
+%npar = numero de genes
+i=at-1;
+hijo=zeros(1,npar);
+auxmadre=genesmadre;
+counter1=npar/2;
+        while(counter1~=0)
+            i = i +1;
+            if i > npar
+                i=1;
+            end  
+            hijo(i)=genespadre(i);
+            counter1=counter1 - 1;
+            indi=auxmadre==hijo(i); %Indice del gen utilizado por el otro padre
+            auxmadre(:,indi)=[]; %Contiene los genes restantes que no han sido utilizado por el otro padre
+            
+        end
+        
+        j=1;
+        counter2=npar/2;
+     
+        %Genes de la madre
+        while(counter2~=0)
+            i=i+1;
+            if i > npar
+                i=1;                              
+            end
+            hijo(i)=auxmadre(j); 
+            counter2=counter2 - 1;
+            
+            j=j+1;
+        end
+end
+
