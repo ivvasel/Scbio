@@ -1,5 +1,5 @@
 % function 1.	tspga_DNI (fmode,model)
-% fucntion tspga_DNI(fmode,model)
+function tspga_45913106(fmode,model)
 % Función que utiliza algoritmos genéticos para resolver el problema del
 % viajante (Travel Sales Problem TSP)
 % INPUTS
@@ -15,15 +15,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % GENERACION DEL MODELO EN FUNCIÓN DE LAS INSTRUCCIONES DEL USUARIO %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% if nargin<1
-     fmode=3;
-% end
+if nargin<1
+     fmode=0;
+end
 numberofnodes=20;
 tam=10;
 if fmode==3
-%     if nargin<2
-%          disp('Error: El modo 3 requiere introducir el modelo')
-%     end
+    if nargin<2
+         disp('Error: El modo 3 requiere introducir el modelo')
+    end
 end
 if fmode<3
     model=generamodelo_45913106(numberofnodes,tam,fmode);
@@ -38,7 +38,7 @@ close all
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 npar=numberofnodes; % # of optimization variables
 Nt=npar; % # of columns in population matrix
-maxit=10000; % max number of iterations
+maxit=5000; % max number of iterations
 popsize=20; % set population size / miembros de la población
 mutrate=.05; % set mutation rate
 selection=0.5; % fraction of population kept / fracción de miembros sobreviven
@@ -72,15 +72,6 @@ pop=pop(ind,:); %reordena la población de acuerdo al coste
 % Prob=[5 4 4 3 3 3 2 2 2 2 1 1 1 1 1];
 % Seleccionamos a la mejor mitad de la población.
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% PONEMOS EL MUNDO VIRTUAL A FUNCIONAR (MAIN LOOP)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-while iga<maxit
-    iga=iga+1; % increments generation counter
-    
-    pop=pop([1:popsize*selection],:);
         odds=[];
         k=popsize*selection;
     for i=1:popsize*selection
@@ -89,6 +80,14 @@ while iga<maxit
         end
             k=k-1;
     end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PONEMOS EL MUNDO VIRTUAL A FUNCIONAR (MAIN LOOP)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+while iga<maxit
+    iga=iga+1; % increments generation counter
+    
+    pop=pop([1:popsize*selection],:);
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % ELIJO A LOS PADRES Y MADRES %
@@ -172,7 +171,9 @@ box on
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 plotsolution(x,y,pop)
- 
+
+
+end
 function cost=tspfun(pop,model)
 % Cost function for the traveling salesman problem.
 [popsize,npar]=size(pop);
@@ -190,7 +191,6 @@ genes=pop(i,:);
     cost=[cost coste];
 end
 end
-
 function plotsolution(x,y,pop)
  
 %%%%%%%%%%%%%%%%%%%
@@ -266,4 +266,5 @@ counter1=npar/2;
             j=j+1;
         end
 end
+
 
