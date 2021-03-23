@@ -1,0 +1,68 @@
+<deployment-project plugin="plugin.apptool" plugin-version="1.0">
+  <configuration build-checksum="2450502461" file="D:\Escritorio\Telecomunicaciones\4\SCBIO\P3\P3_app.prj" location="D:\Escritorio\Telecomunicaciones\4\SCBIO\P3" name="P3_app" target="target.mlapps" target-name="Package App">
+    <param.appname>P3_app</param.appname>
+    <param.authnamewatermark>Iván Valenica</param.authnamewatermark>
+    <param.email />
+    <param.company />
+    <param.icon />
+    <param.icons />
+    <param.summary />
+    <param.description />
+    <param.screenshot>C:\Users\Ivan\AppData\Local\Temp\tp43d3bfd1_0199_4c0f_9f6b_2be7383f26cc.png</param.screenshot>
+    <param.version>2.0</param.version>
+    <param.products.name />
+    <param.products.id />
+    <param.products.version />
+    <param.platforms />
+    <param.output>${PROJECT_ROOT}</param.output>
+    <param.guid>0e606bee-1288-48f6-b53f-19463ea0ef4b</param.guid>
+    <unset>
+      <param.email />
+      <param.company />
+      <param.icon />
+      <param.icons />
+      <param.summary />
+      <param.description />
+      <param.products.name />
+      <param.products.id />
+      <param.products.version />
+      <param.platforms />
+      <param.output />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}\APP.mlapp</file>
+    </fileset.main>
+    <fileset.depfun>
+      <file>${PROJECT_ROOT}\AP_ventriculo.mat</file>
+      <file>${PROJECT_ROOT}\calculaelectromiogramas_45913106.m</file>
+      <file>${PROJECT_ROOT}\mainHH_Euler_12ps_45913106.m</file>
+      <file>${PROJECT_ROOT}\mainHH_Euler_45913106.m</file>
+      <file>${PROJECT_ROOT}\Simulaalcoholycafeina_45913106.m</file>
+    </fileset.depfun>
+    <fileset.resources />
+    <fileset.package />
+    <build-deliverables>
+      <file location="D:\Escritorio\Telecomunicaciones\4\SCBIO" name="P3" optional="false">D:\Escritorio\Telecomunicaciones\4\SCBIO\P3</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>D:\User\Programas</root>
+      <toolboxes />
+    </matlab>
+    <platform>
+      <unix>false</unix>
+      <mac>false</mac>
+      <windows>true</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>10.0</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>win64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
